@@ -1,11 +1,5 @@
-# WebScraping
-requests
-beautifulsoup4
-pandas
-matplotlib
-seaborn
 # main.py
-# 📚 Projeto: Análise de Livros com Web Scraping
+# Projeto: Análise de Livros com Web Scraping
 # Autor: Guilherme Coutinho Lopes
 
 import requests
