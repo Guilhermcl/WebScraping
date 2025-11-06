@@ -1,63 +1,33 @@
-# main.py
-# Projeto: Análise de Livros com Web Scraping
-# Autor: Guilherme Coutinho Lopes
+#  Análise de Livros com Web Scraping
 
-import requests
-from bs4 import BeautifulSoup
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+##  Sobre o Projeto  
+Este projeto foi desenvolvido em **Python** com o objetivo de coletar e analisar dados de um **site de livros**.  
+Através de **Web Scraping**, foram extraídas informações como **título**, **preço** e **nota de avaliação** dos livros.  
+Em seguida, os dados foram tratados e utilizados para gerar **gráficos** que mostram a relação entre o **valor** e a **nota média** dos produtos.
 
-# URL do site de exemplo (substitua pelo site real utilizado)
-url = "https://books.toscrape.com/"
+---
 
-# Faz a requisição da página
-response = requests.get(url)
-soup = BeautifulSoup(response.text, "html.parser")
+##  Tecnologias Utilizadas  
 
-# Coleta os dados dos livros
-books = soup.find_all("article", class_="product_pod")
+-  **Python 3**  
+-  **Requests** – para acessar e coletar os dados das páginas  
+-  **BeautifulSoup** – para extrair e tratar as informações do HTML  
+-  **Pandas** – para organizar e analisar os dados  
+-  **Matplotlib / Seaborn** – para criação dos gráficos  
 
-titulos = []
-precos = []
-notas = []
+---
 
-for book in books:
-    titulo = book.h3.a["title"]
-    preco = book.find("p", class_="price_color").text.replace("£", "").strip()
-    preco = float(preco)
-    
-    # As notas nesse site são representadas por classes (One, Two, etc.)
-    nota_class = book.p["class"][1]
-    notas_dict = {"One": 1, "Two": 2, "Three": 3, "Four": 4, "Five": 5}
-    nota = notas_dict.get(nota_class, 0)
-    
-    titulos.append(titulo)
-    precos.append(preco)
-    notas.append(nota)
+##  Funcionalidades  
 
-# Cria um DataFrame com os dados
-df = pd.DataFrame({
-    "Título": titulos,
-    "Preço (£)": precos,
-    "Nota": notas
-})
+- Coleta automática de informações de livros (nome, preço e nota)  
+- Cálculo das médias de preço e nota  
+- Geração de gráficos comparativos entre **valor x avaliação**  
+- Visualização clara da relação entre preço e qualidade percebida  
 
-# Exibe o resumo dos dados
-print(df.head())
+---
 
-# Calcula a média geral de preço e nota
-media_preco = df["Preço (£)"].mean()
-media_nota = df["Nota"].mean()
-print(f"\nMédia de Preço: £{media_preco:.2f}")
-print(f"Média de Nota: {media_nota:.2f}")
+##  Como Executar o Projeto  
 
-# Cria gráfico de dispersão (Preço x Nota)
-plt.figure(figsize=(8, 5))
-sns.scatterplot(x="Preço (£)", y="Nota", data=df, s=80)
-plt.title("Relação entre Preço e Nota dos Livros")
-plt.xlabel("Preço (£)")
-plt.ylabel("Nota")
-plt.grid(True)
-plt.show()
-  
+1. **Clone este repositório:**  
+   ```bash
+   git clone https://github.com/seu-usuario/nome-do-repositorio.git
